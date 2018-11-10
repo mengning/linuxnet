@@ -212,6 +212,7 @@ int main()
     ifr.ifr_name[1] = 'o';
     ifr.ifr_name[2] = '\n';
     ioctl (fd, SIOCSIFADDR, &ifr);
+    close(fd);
     PrintMenuOS();
     SetPrompt("MenuOS>>");
     MenuConfig("version","MenuOS V1.0(Based on Linux 3.18.6)",NULL);
