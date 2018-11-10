@@ -190,6 +190,17 @@ int StartReplyhi(int argc, char *argv[])
 	}
 }
 
+int Hello(int argc, char *argv[])
+{
+	char szBuf[MAX_BUF_LEN] = "\0";
+	char szMsg[MAX_BUF_LEN] = "hello\0";
+	OpenRemoteService();
+	SendMsg(szMsg);
+	RecvMsg(szBuf);
+	CloseRemoteService();
+	return 0;
+}
+
 #include <sys/ioctl.h>
 #include <net/if.h>
 #include <netinet/in.h>
@@ -208,6 +219,7 @@ int main()
     MenuConfig("time","Show System Time",Time);
     MenuConfig("time-asm","Show System Time(asm)",TimeAsm);
     MenuConfig("replyhi", "Reply hi TCP Service", StartReplyhi);
+    MenuConfig("hello", "Hello TCP Client", Hello);
     ExecuteMenu();
 }
 
