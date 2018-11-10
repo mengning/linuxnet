@@ -211,7 +211,7 @@ int BringUpNetInterface()
     ifr.ifr_name[0] = 'l';
     ifr.ifr_name[1] = 'o';
     ifr.ifr_name[2] = '\n';
-    ioctl (fd, SIOCSIFADDR, &ifr);
+    ioctl (fd, SIOCGIFFLAGS, &ifr);
     close(fd);	
 }
 int main()
