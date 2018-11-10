@@ -190,9 +190,17 @@ int StartReplyhi(int argc, char *argv[])
 	}
 }
 
-
+#include <sys/ioctl.h>
+#include <net/if.h>
+#include <netinet/in.h>
 int main()
 {
+    struct ifreq ifr;
+    int fd = socket(PF_INET, SOCK_DGRAM, IPPROTO_IP);
+    ifr.ifr_name[0] = 'l';
+    ifr.ifr_name[1] = 'o';
+    ifr.ifr_name[2] = '\n';
+    ioctl (fd, SIOCSIFADDR, &ifr);
     PrintMenuOS();
     SetPrompt("MenuOS>>");
     MenuConfig("version","MenuOS V1.0(Based on Linux 3.18.6)",NULL);
