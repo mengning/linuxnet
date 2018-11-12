@@ -189,17 +189,17 @@ int BringUpNetInterface()
 {
     printf("Bring up interface:lo\n");
     struct sockaddr_in sa;
-    struct ifreq ifr;
+    struct ifreq ifreqlo;
     int fd;
     sa.sin_family = AF_INET;
     sa.sin_addr.s_addr = inet_addr("127.0.0.1");
     fd = socket(PF_INET, SOCK_DGRAM, IPPROTO_IP);
-    ifr.ifr_name = “lo”; 
-    memcpy((char *) &ifr.ifr_addr, (char *) &sa, sizeof(struct sockaddr));
-    ioctl(fd, SIOCSIFADDR, &ifr);
-    ioctl(fd, SIOCGIFFLAGS, &ifr);
-    ifr.ifr_flags |= IFF_UP|IFF_LOOPBACK|IFF_RUNNING;
-    ioctl(fd, SIOCSIFFLAGS, &ifr);
+    strncpy(ifreqlo.ifr_name, "lo",sizeof("lo"));
+    memcpy((char *) &ifreqlo.ifr_addr, (char *) &sa, sizeof(struct sockaddr));
+    ioctl(fd, SIOCSIFADDR, &ifreqlo);
+    ioctl(fd, SIOCGIFFLAGS, &ifreqlo);
+    ifreqlo.ifr_flags |= IFF_UP|IFF_LOOPBACK|IFF_RUNNING;
+    ioctl(fd, SIOCSIFFLAGS, &ifreqlo);
     close(fd);
     printf("List all interfaces:\n");
     struct ifreq *ifr, *ifend;
