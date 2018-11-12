@@ -235,7 +235,17 @@ int BringUpNetInterface()
     ifend = ifs + (ifc.ifc_len / sizeof(struct ifreq));
     for (ifr = ifc.ifc_req; ifr < ifend; ifr++)
     {
-        if (ifr->ifr_addr.sa_family == AF_INET)
+        if (strcmp(ifr->ifr_name, "lo") == 0)
+	{
+            strncpy(ifreq.ifr_name, ifr->ifr_name,sizeof(ifreq.ifr_name));
+	    ifreq.ifr_flags == IFF_UP;
+            if (ioctl (SockFD, SIOCSIFFLAGS, &ifreq) < 0)
+            {
+              printf("SIOCSIFFLAGS(%s): IFF_UP %m\n", ifreq.ifr_name);
+              return 0;
+            }			
+	}
+	if (ifr->ifr_addr.sa_family == AF_INET)
         {
             strncpy(ifreq.ifr_name, ifr->ifr_name,sizeof(ifreq.ifr_name));
             if (ioctl (SockFD, SIOCGIFHWADDR, &ifreq) < 0)
