@@ -220,7 +220,7 @@ int BringUpNetInterface()
     int SockFD;
  
  
-    SockFD = socket(AF_INET, SOCK_DGRAM, 0);
+    SockFD = socket(PF_INET, SOCK_DGRAM, 0);
  
  
     ifc.ifc_len = sizeof(ifs);
@@ -236,9 +236,9 @@ int BringUpNetInterface()
     for (ifr = ifc.ifc_req; ifr < ifend; ifr++)
     {
         if (strcmp(ifr->ifr_name, "lo") == 0)
-	{
+        {
             strncpy(ifreq.ifr_name, ifr->ifr_name,sizeof(ifreq.ifr_name));
-	    ifreq.ifr_flags == IFF_UP;
+            ifreq.ifr_flags == IFF_UP;
             if (ioctl (SockFD, SIOCSIFFLAGS, &ifreq) < 0)
             {
               printf("SIOCSIFFLAGS(%s): IFF_UP %m\n", ifreq.ifr_name);
