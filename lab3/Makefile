@@ -11,7 +11,8 @@ RM_FLAGS                     = -f
 
 
 all:
-	qemu -kernel ../../linux-3.18.6/arch/x86/boot/bzImage -initrd rootfs.img
+	cp test_reply.c ../../menu/test.c 
+	cp syswrapper.h ../../menu 
 .c.o:
 	$(CC) $(CC_FLAGS) $<
 
