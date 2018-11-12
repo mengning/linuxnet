@@ -109,7 +109,7 @@
         ret = send(newfd,buf,strlen(buf),0);            \
         if(ret > 0)                                     \
         {                                               \
-            printf("rely \"hi\" to %s:%d\n",            \
+            printf("send \"hi\" to %s:%d\n",            \
             (char*)inet_ntoa(clientaddr.sin_addr),      \
             ntohs(clientaddr.sin_port));                \
         }
