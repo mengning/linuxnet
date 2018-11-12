@@ -122,32 +122,6 @@ int Quit(int argc, char *argv[])
     /* add XXX clean ops */
 }
 
-int Time(int argc, char *argv[])
-{
-    time_t tt;
-    struct tm *t;
-    tt = time(NULL);
-    t = localtime(&tt);
-    printf("time:%d:%d:%d:%d:%d:%d\n",t->tm_year+1900, t->tm_mon, t->tm_mday, t->tm_hour, t->tm_min, t->tm_sec);
-    return 0;
-}
-
-int TimeAsm(int argc, char *argv[])
-{
-    time_t tt;
-    struct tm *t;
-    asm volatile(
-        "mov $0,%%ebx\n\t"
-        "mov $0xd,%%eax\n\t" 
-        "int $0x80\n\t" 
-        "mov %%eax,%0\n\t"  
-        : "=m" (tt) 
-    );
-    t = localtime(&tt);
-    printf("time:%d:%d:%d:%d:%d:%d\n",t->tm_year+1900, t->tm_mon, t->tm_mday, t->tm_hour, t->tm_min, t->tm_sec);
-    return 0;
-}
-
 #include"syswrapper.h"
 #define MAX_CONNECT_QUEUE   1024
 int Replyhi()
@@ -231,10 +205,12 @@ int BringUpNetInterface()
         return 0;
     }
  
- 
+    printf("List all interfaces:\n");
     ifend = ifs + (ifc.ifc_len / sizeof(struct ifreq));
     for (ifr = ifc.ifc_req; ifr < ifend; ifr++)
     {
+        printf("interface:%s\n", ifr->ifr_name);
+#if 0
         if (strcmp(ifr->ifr_name, "lo") == 0)
         {
             strncpy(ifreq.ifr_name, ifr->ifr_name,sizeof(ifreq.ifr_name));
@@ -244,8 +220,9 @@ int BringUpNetInterface()
               printf("SIOCSIFFLAGS(%s): IFF_UP %m\n", ifreq.ifr_name);
               return 0;
             }			
-	}
-	if (ifr->ifr_addr.sa_family == AF_INET)
+	    }
+#endif
+	    if (ifr->ifr_addr.sa_family == AF_INET)
         {
             strncpy(ifreq.ifr_name, ifr->ifr_name,sizeof(ifreq.ifr_name));
             if (ioctl (SockFD, SIOCGIFHWADDR, &ifreq) < 0)
@@ -254,15 +231,15 @@ int BringUpNetInterface()
               return 0;
             }
  
-printf("Ip Address %s\n", inet_ntoa( ( (struct sockaddr_in *)  &ifr->ifr_addr)->sin_addr)); 
-      printf("Device %s -> Ethernet %02x:%02x:%02x:%02x:%02x:%02x\n", ifreq.ifr_name,
-      (int) ((unsigned char *) &ifreq.ifr_hwaddr.sa_data)[0],
-      (int) ((unsigned char *) &ifreq.ifr_hwaddr.sa_data)[1],
-      (int) ((unsigned char *) &ifreq.ifr_hwaddr.sa_data)[2],
-      (int) ((unsigned char *) &ifreq.ifr_hwaddr.sa_data)[3],
-      (int) ((unsigned char *) &ifreq.ifr_hwaddr.sa_data)[4],
-      (int) ((unsigned char *) &ifreq.ifr_hwaddr.sa_data)[5]);
- }
+            printf("Ip Address %s\n", inet_ntoa( ( (struct sockaddr_in *)  &ifr->ifr_addr)->sin_addr)); 
+            printf("Device %s -> Ethernet %02x:%02x:%02x:%02x:%02x:%02x\n", ifreq.ifr_name,
+                (int) ((unsigned char *) &ifreq.ifr_hwaddr.sa_data)[0],
+                (int) ((unsigned char *) &ifreq.ifr_hwaddr.sa_data)[1],
+                (int) ((unsigned char *) &ifreq.ifr_hwaddr.sa_data)[2],
+                (int) ((unsigned char *) &ifreq.ifr_hwaddr.sa_data)[3],
+                (int) ((unsigned char *) &ifreq.ifr_hwaddr.sa_data)[4],
+                (int) ((unsigned char *) &ifreq.ifr_hwaddr.sa_data)[5]);
+        }
     }
  
     return 0;
@@ -274,8 +251,6 @@ int main()
     SetPrompt("MenuOS>>");
     MenuConfig("version","MenuOS V1.0(Based on Linux 3.18.6)",NULL);
     MenuConfig("quit","Quit from MenuOS",Quit);
-    MenuConfig("time","Show System Time",Time);
-    MenuConfig("time-asm","Show System Time(asm)",TimeAsm);
     MenuConfig("replyhi", "Reply hi TCP Service", StartReplyhi);
     MenuConfig("hello", "Hello TCP Client", Hello);
     ExecuteMenu();
