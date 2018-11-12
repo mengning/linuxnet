@@ -201,6 +201,19 @@ int BringUpNetInterface()
     ifreqlo.ifr_flags |= IFF_UP|IFF_LOOPBACK|IFF_RUNNING;
     ioctl(fd, SIOCSIFFLAGS, &ifreqlo);
     close(fd);
+    
+    printf("Bring up interface:eth0\n");
+    sa.sin_family = AF_INET;
+    sa.sin_addr.s_addr = inet_addr("192.168.40.254");
+    fd = socket(PF_INET, SOCK_DGRAM, IPPROTO_IP);
+    strncpy(ifreqlo.ifr_name, "eth0",sizeof("eth0"));
+    memcpy((char *) &ifreqlo.ifr_addr, (char *) &sa, sizeof(struct sockaddr));
+    ioctl(fd, SIOCSIFADDR, &ifreqlo);
+    ioctl(fd, SIOCGIFFLAGS, &ifreqlo);
+    ifreqlo.ifr_flags |= IFF_UP|IFF_RUNNING;
+    ioctl(fd, SIOCSIFFLAGS, &ifreqlo);
+    close(fd);
+
     printf("List all interfaces:\n");
     struct ifreq *ifr, *ifend;
     struct ifreq ifreq;
