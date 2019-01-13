@@ -317,6 +317,8 @@ int    SetDefaultGateway()
     printf("Default gateway %s\n", inet_ntoa( ( (struct sockaddr_in *)  &route.rt_gateway)->sin_addr)); 
 }
 
+#include "getroute.c"
+
 int main()
 {
     BringUpNetInterface();
