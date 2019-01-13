@@ -8,17 +8,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int main(int argc, char **argv) {
- if (argc < 2) {
-   fprintf(stderr,"Usage: %s hostname\n", argv[0]);
-   exit(1);
- }
+int Gethostbyname() {
 
- struct hostent *hp = gethostbyname(argv[1]);
+ struct hostent *hp = gethostbyname("github.com");
 
  if (hp == NULL) {
    fprintf(stderr,"gethostbyname() failed\n");
-   exit(1);
  } else {
    printf("%s = ", hp->h_name);
    unsigned int i=0;
@@ -27,6 +22,5 @@ int main(int argc, char **argv) {
      i++;
    }
    printf("\n");
-   exit(0);
  }
 }
