@@ -138,7 +138,7 @@ then return. */
 }
 
 
-int main()
+int GetRoute()
 {
     struct nlmsghdr *nlMsg;
     struct rtmsg *rtMsg;
