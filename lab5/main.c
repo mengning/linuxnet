@@ -204,7 +204,7 @@ int BringUpNetInterface()
     
     printf("Bring up interface:eth0\n");
     sa.sin_family = AF_INET;
-    sa.sin_addr.s_addr = inet_addr("192.168.40.9");
+    sa.sin_addr.s_addr = inet_addr("10.0.2.15");
     fd = socket(PF_INET, SOCK_DGRAM, IPPROTO_IP);
     strncpy(ifreqlo.ifr_name, "eth0",sizeof("eth0"));
     memcpy((char *) &ifreqlo.ifr_addr, (char *) &sa, sizeof(struct sockaddr));
@@ -300,7 +300,7 @@ int    SetDefaultGateway()
     memset(&route, 0, sizeof(route));
     addr = (struct sockaddr_in*) &route.rt_gateway;
     addr->sin_family = AF_INET;
-    addr->sin_addr.s_addr = inet_addr("192.168.40.1");
+    addr->sin_addr.s_addr = inet_addr("10.0.2.2");
     addr = (struct sockaddr_in*) &route.rt_dst;
     addr->sin_family = AF_INET;
     addr->sin_addr.s_addr = INADDR_ANY;
