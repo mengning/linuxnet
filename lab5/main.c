@@ -211,12 +211,12 @@ int BringUpNetInterface()
     ioctl(fd, SIOCSIFADDR, &ifreqlo);
     ioctl(fd, SIOCGIFFLAGS, &ifreqlo);
     ifreqlo.ifr_flags |= IFF_UP|IFF_RUNNING;
-    ifreqlo.ifr_hwaddr.sa_data)[0] = 0x02;
-    ifreqlo.ifr_hwaddr.sa_data)[1] = 0x42;
-    ifreqlo.ifr_hwaddr.sa_data)[2] = 0xc0;
-    ifreqlo.ifr_hwaddr.sa_data)[3] = 0xa8;
-    ifreqlo.ifr_hwaddr.sa_data)[4] = 0x28;
-    ifreqlo.ifr_hwaddr.sa_data)[5] = 0x05;
+    ((unsigned char *) &ifreqlo.ifr_hwaddr.sa_data)[0] = 0x02;
+    ((unsigned char *) &ifreqlo.ifr_hwaddr.sa_data)[1] = 0x42;
+    ((unsigned char *) &ifreqlo.ifr_hwaddr.sa_data)[2] = 0xc0;
+    ((unsigned char *) &ifreqlo.ifr_hwaddr.sa_data)[3] = 0xa8;
+    ((unsigned char *) &ifreqlo.ifr_hwaddr.sa_data)[4] = 0x28;
+    ((unsigned char *) &ifreqlo.ifr_hwaddr.sa_data)[5] = 0x05;
     ioctl(fd, SIOCSIFFLAGS, &ifreqlo);
     close(fd);
 
