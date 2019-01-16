@@ -322,8 +322,8 @@ int    SetDefaultGateway()
 int main()
 {
     BringUpNetInterface();
-//    SetDefaultGateway();
-//    GetRoute();
+    SetDefaultGateway();
+    GetRoute();
     Gethostbyname();
     PrintMenuOS();
     SetPrompt("MenuOS>>");
