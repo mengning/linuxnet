@@ -318,19 +318,19 @@ int    SetDefaultGateway()
 }
 
 #include "getroute.c"
-#include "gethostbyname.c"
+#include "dnsquery.c"
 int main()
 {
     BringUpNetInterface();
-    SetDefaultGateway();
-    GetRoute();
-    Gethostbyname();
+//    SetDefaultGateway();
+//    GetRoute();
     PrintMenuOS();
     SetPrompt("MenuOS>>");
     MenuConfig("version","MenuOS V1.0(Based on Linux 3.18.6)",NULL);
     MenuConfig("quit","Quit from MenuOS",Quit);
     MenuConfig("replyhi", "Reply hi TCP Service", StartReplyhi);
     MenuConfig("hello", "Hello TCP Client", Hello);
+    MenuConfig("dns", "DNS Query github.com", Gethostbyname);
     ExecuteMenu();
 }
 

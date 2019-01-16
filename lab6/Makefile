@@ -15,7 +15,7 @@ OBJS    =   linktable.o  menu.o main.o
 all:	$(OBJS)
 	$(CC) $(CC_OUTPUT_FLAGS) $(TARGET) $(OBJS) -m32 
 rootfs:
-	gcc -o init linktable.c menu.c main.c -m32
+	gcc -o init linktable.c menu.c main.c -m32 -static -lpthread
 	qemu -kernel ../bzImage -initrd ../rootfs.img -append "root=/dev/ram init=/init"
 .c.o:
 	$(CC) $(CC_FLAGS) $<

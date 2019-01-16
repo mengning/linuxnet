@@ -28,8 +28,8 @@
 //#define NDEBUG
 #include<assert.h>
 
-#define PORT                5001
-#define IP_ADDR             "127.0.0.1"
+#define PORT                80
+#define IP_ADDR             "192.30.255.113"
 #define MAX_BUF_LEN         1024
 
 /* private macro */

@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int Gethostbyname() {
+int main() {
 
  struct hostent *hp = gethostbyname("github.com");
 

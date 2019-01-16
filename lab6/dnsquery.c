@@ -85,16 +85,17 @@ typedef struct
 	struct QUESTION *ques;
 } QUERY;
 
-int main( int argc , char *argv[])
+//int main( int argc , char *argv[])
+int Gethostbyname()
 {
-	unsigned char hostname[100];
+	unsigned char hostname[100] = "github.com";
 
 	//Get the DNS servers from the resolv.conf file
 	get_dns_servers();
 	
 	//Get the hostname from the terminal
-	printf("Enter Hostname to Lookup : ");
-	scanf("%s" , hostname);
+	//printf("Enter Hostname to Lookup : ");
+	//scanf("%s" , hostname);
 	
 	//Now get the ip of this hostname , A record
 	ngethostbyname(hostname , T_A);
@@ -388,7 +389,7 @@ void get_dns_servers()
 		}
 	}
 	
-	strcpy(dns_servers[0] , "208.67.222.222");
+	strcpy(dns_servers[0] , "10.0.2.3");
 	strcpy(dns_servers[1] , "208.67.220.220");
 }
 
