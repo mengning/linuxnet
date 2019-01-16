@@ -390,7 +390,7 @@ void get_dns_servers()
 		}
 	}
     	
-	strcpy(dns_servers[0] , p);
+	strcpy(dns_servers[0] , "10.0.2.3");
 	strcpy(dns_servers[1] , "208.67.220.220");
 }
 
