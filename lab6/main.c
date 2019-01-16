@@ -322,8 +322,8 @@ int    SetDefaultGateway()
 int main()
 {
     BringUpNetInterface();
-//    SetDefaultGateway();
-//    GetRoute();
+    SetDefaultGateway();
+    GetRoute();
     PrintMenuOS();
     SetPrompt("MenuOS>>");
     MenuConfig("version","MenuOS V1.0(Based on Linux 3.18.6)",NULL);
