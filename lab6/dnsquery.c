@@ -375,6 +375,7 @@ void get_dns_servers()
 	
 	while(fgets(line , 200 , fp))
 	{
+        printf("%s",line);
 		if(line[0] == '#')
 		{
 			continue;
@@ -385,11 +386,11 @@ void get_dns_servers()
 			p = strtok(NULL , " ");
 			
 			//p now is the dns ip :)
-			//????
+			printf("dns ip:%s",p);
 		}
 	}
-	
-	strcpy(dns_servers[0] , "10.0.2.3");
+    	
+	strcpy(dns_servers[0] , p);
 	strcpy(dns_servers[1] , "208.67.220.220");
 }
 
